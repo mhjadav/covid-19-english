@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'gatsby';
-
+import {isWindow} from '../utils';
 import Row from './row';
 
 function Table(props) {
@@ -8,12 +8,15 @@ function Table(props) {
   const [revealedStates, setRevealedStates] = useState({});
   const [districts, setDistricts] = useState({});
   const [count, setCount] = useState(0);
+  const stateSortColumn = isWindow ? localStorage.getItem('state.sortColumn') : null;
+  const stateIsAscending = isWindow ? localStorage.getItem('state.isAscending') : null;
+  const innerWidth = isWindow && window.innerWidth;
   const [sortData, setSortData] = useState({
-    sortColumn: localStorage.getItem('state.sortColumn')
-      ? localStorage.getItem('state.sortColumn')
+    sortColumn: stateSortColumn
+      ? stateSortColumn
       : 'confirmed',
-    isAscending: localStorage.getItem('state.isAscending')
-      ? localStorage.getItem('state.isAscending') === 'true'
+    isAscending: stateIsAscending
+      ? stateIsAscending === 'true'
       : false,
   });
 
@@ -88,8 +91,8 @@ function Table(props) {
       sortColumn: currentsortColumn,
       isAscending: isAscending,
     });
-    localStorage.setItem('state.sortColumn', currentsortColumn);
-    localStorage.setItem('state.isAscending', isAscending);
+    isWindow && localStorage.setItem('state.sortColumn', currentsortColumn);
+    isWindow && localStorage.setItem('state.isAscending', isAscending);
   };
 
   const handleReveal = (state) => {
@@ -132,11 +135,11 @@ function Table(props) {
             <th className="sticky" onClick={(e) => handleSort(e, props)}>
               <div className="heading-content">
                 <abbr
-                  className={`${window.innerWidth <= 769 ? 'is-cherry' : ''}`}
+                  className={`${innerWidth <= 769 ? 'is-cherry' : ''}`}
                   title="Confirmed"
                 >
-                  {window.innerWidth <= 769
-                    ? window.innerWidth <= 375
+                  {innerWidth <= 769
+                    ? innerWidth <= 375
                       ? 'C'
                       : 'Cnfmd'
                     : 'Confirmed'}
@@ -158,11 +161,11 @@ function Table(props) {
             <th className="sticky" onClick={(e) => handleSort(e, props)}>
               <div className="heading-content">
                 <abbr
-                  className={`${window.innerWidth <= 769 ? 'is-blue' : ''}`}
+                  className={`${innerWidth <= 769 ? 'is-blue' : ''}`}
                   title="Active"
                 >
-                  {window.innerWidth <= 769
-                    ? window.innerWidth <= 375
+                  {innerWidth <= 769
+                    ? innerWidth <= 375
                       ? 'A'
                       : 'Actv'
                     : 'Active'}
@@ -184,11 +187,11 @@ function Table(props) {
             <th className="sticky" onClick={(e) => handleSort(e, props)}>
               <div className="heading-content">
                 <abbr
-                  className={`${window.innerWidth <= 769 ? 'is-green' : ''}`}
+                  className={`${innerWidth <= 769 ? 'is-green' : ''}`}
                   title="Recovered"
                 >
-                  {window.innerWidth <= 769
-                    ? window.innerWidth <= 375
+                  {innerWidth <= 769
+                    ? innerWidth <= 375
                       ? 'R'
                       : 'Rcvrd'
                     : 'Recovered'}
@@ -215,11 +218,11 @@ function Table(props) {
             <th className="sticky" onClick={(e) => handleSort(e, props)}>
               <div className="heading-content">
                 <abbr
-                  className={`${window.innerWidth <= 769 ? 'is-gray' : ''}`}
+                  className={`${innerWidth <= 769 ? 'is-gray' : ''}`}
                   title="Deaths"
                 >
-                  {window.innerWidth <= 769
-                    ? window.innerWidth <= 375
+                  {innerWidth <= 769
+                    ? innerWidth <= 375
                       ? 'D'
                       : 'Dcsd'
                     : 'Deceased'}
