@@ -59,7 +59,7 @@
     "d3-svg-legend": "^2.25.6",
     "date-fns": "^2.11.0",
     "dotenv": "^8.2.0",
-    "gatsby": "^2.18.7",
+    "gatsby": "^2.20.18",
     "gatsby-image": "^2.2.34",
     "gatsby-plugin-google-analytics": "^2.1.29",
     "gatsby-plugin-manifest": "^2.2.31",
